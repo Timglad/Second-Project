@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script> function myFunction() {
+    confirm("are you sure?");
+}</script>
+    {% if edit %}
+
+    <form action="{% url 'books:edit' book.id %}" method="POST">
+        {% csrf_token %}
+        Book name:
+        <input type="text" value="{{book.name}}" name="name"><br>
+        Author:
+        <input type="text" value="{{book.author}}" name="author"><br>
+        Year published:
+        <input type="date" value="{{book.year_published|date:"Y"}}" name="yearpublished"<br>
+        <input type="submit" value="save edit">
+    </form>
+    
+    {% else %}
+    <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." >
+    <hr/>
+    Name:{{book.name}}<br>
+    Author:{{book.author}}<br>
+    Year published:{{book.year_published|date:"Y"}}<br>
+    <a href="{% url 'books:edit' book.id %}" class="btn btn-info">Edit book</a>
+    <a href="{% url 'books:delbook' book.id %}" onclick="return confirm('The book will be deleted forever, are you sure you want to delete the book?')" class="btn btn-danger">Delete book</a>
+    {% endif %}
+   
+    
+
+{% endblock %}

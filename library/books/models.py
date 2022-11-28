@@ -32,4 +32,7 @@ class Loan(models.Model):
     loandate = models.DateTimeField(auto_now_add=True)
     returndate = models.DateField()
 
+    def __str__(self):
+      return self.custID + "," + self.returndate
+
 
