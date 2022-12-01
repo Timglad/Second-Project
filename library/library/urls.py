@@ -6,7 +6,8 @@ from . import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("books/", include('books.urls'))
+    path("books/", include('books.urls')),
+   
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

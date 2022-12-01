@@ -37,6 +37,14 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
+        {% if user.is_authenticated %}
+        <span>Hello {{ user.username }}</span>
+        
+        <a href="{% url 'books:logout_func' %}">LogOut </a><tb>
+        {% else %}
+        <a href="{% url 'books:login_func' %}">LogIn</a><tb>
+        <a href="{% url 'books:register_func' %}">Register</a>
+        {% endif %}
       </div>
     </div>
   </nav>
