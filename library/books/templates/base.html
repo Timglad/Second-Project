@@ -39,7 +39,6 @@
         </form>
         {% if user.is_authenticated %}
         <span>Hello {{ user.username }}</span>
-        
         <a href="{% url 'books:logout_func' %}">LogOut </a><tb>
         {% else %}
         <a href="{% url 'books:login_func' %}">LogIn</a><tb>
@@ -52,5 +51,3 @@
 {% block content %}
 {% endblock %}
 
-</body>
-</html>

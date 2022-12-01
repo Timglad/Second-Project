@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <div>
+    
 <form action="{% url 'books:login_func' %}" method='POST'><br>
 {% csrf_token %}
 
-   
-    <input type='text' name='username'>
-
-
-    <input type='password' name='password'>
-
+    Username: <input type='text' name='username'><br>
+    Password:<input type='password' name='password'>
     <input type='submit' value='Log-In'>
 
 </form>
