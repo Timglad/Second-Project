@@ -38,7 +38,7 @@ def register_func(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('books:mains')
+            return redirect('books:login_func')
         return render(request,'register_form.html',{'form':form})
 
 
@@ -46,5 +46,3 @@ def logout_func(request):
     
     logout(request)
     return redirect('books:mains')
-
- 
