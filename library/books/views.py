@@ -5,6 +5,7 @@ from books.forms import BookForm
 from django.contrib.auth.decorators import login_required
 from books.models import Book
 from django.contrib import messages
+from django.db.models import Q
 
 def mains(request):
    mybooks = Book.objects.all()
@@ -26,6 +27,14 @@ def add_book(request):
         'bookform': bookform,
     }
     return render(request, "add_book.html", context=context)
+        
+def search_books(request):
+    search = request.GET.get('search')
+    books = Book.objects.filter(Q(name__contains= search) | Q(author__contains= search))
+    context = {
+        'book_list' : books,
+    }
+    return render(request, 'mains.html', context= context)
 
 def delete_book(request,pk):
     book = Book.objects.get(id=pk)
