@@ -25,6 +25,11 @@
     Year published:{{book.year_published|date:"Y"}}<br>
     <a href="{% url 'books:edit' book.id %}" class="btn btn-info">Edit book</a>
     <a href="{% url 'books:delbook' book.id %}" onclick="return confirm('The book will be deleted forever, are you sure you want to delete the book?')" class="btn btn-danger">Delete book</a>
+    {% if book.status == "A" %}
+    <a href="{% url 'books:loan' book.id %}" class="btn btn-info">Loan book</a>
+    {% else %}
+    <button type="button" class="btn btn-info" disabled>Loan book</button>
+    {% endif %}
     {% endif %}
    
     

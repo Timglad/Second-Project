@@ -3,9 +3,12 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from books.forms import BookForm
 from django.contrib.auth.decorators import login_required
-from books.models import Book
+from books.models import Book, Loan
 from django.contrib import messages
 from django.db.models import Q
+#from django.contrib.auth.models import User
+from django.db import models
+import datetime
 
 def mains(request):
    mybooks = Book.objects.all()
@@ -56,3 +59,26 @@ def edit_book(request, pk):
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')
 
+
+def loans(request, bookid):
+    current_book = Book.objects.get(id=bookid)
+    if current_book.status == "A":
+        current_user = request.user
+        loan = Loan(custID = current_user, bookID= current_book)
+        loan.save()
+        loantype = current_book.type
+        loan.returndate = loan.loandate + datetime.timedelta(days=loantype)
+        loan.save()
+        current_book.status = "L"
+        current_book.save()
+        return redirect('books:mains')
+    return redirect('books:mains')
+
+
+    
+
+
+
+
+
+    
