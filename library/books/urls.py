@@ -13,5 +13,8 @@ urlpatterns = [
     path('loginout/', entry.logout_func, name="logout_func"),
     path('register/', entry.register_func, name="register_func"),
     path('searchbooks', views.search_books, name="searchbooks"),
-    path('<bookid>/loan',views.loans,name= 'loan')
+    path('<pk>/loan',views.loans,name= 'loan'),
+    path('loans/',views.loan_list,name= 'loans'),
+    path('<pk>/return',views.returns,name= 'return')
+
 ]

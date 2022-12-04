@@ -60,8 +60,8 @@ def edit_book(request, pk):
     return redirect('books:mains')
 
 
-def loans(request, bookid):
-    current_book = Book.objects.get(id=bookid)
+def loans(request, pk):
+    current_book = Book.objects.get(id=pk)
     if current_book.status == "A":
         current_user = request.user
         loan = Loan(custID = current_user, bookID= current_book)
@@ -73,6 +73,29 @@ def loans(request, bookid):
         current_book.save()
         return redirect('books:mains')
     return redirect('books:mains')
+
+def returns(request, pk):
+    current_loan = Loan.objects.get(id=pk)
+    book = Book.objects.get(id=current_loan.bookID.id)
+    book.status = "A"
+    book.save()
+    current_loan.delete()
+    return redirect('books:loans')
+
+def loan_list(request):
+    loans = Loan.objects.all()
+    current_user = request.user
+    loans_private = [{}]
+    for loan in loans:
+        if loan.custID == current_user:
+            loans_private.append(loan)
+        else :
+             messages.info(request,"Saved Successfuly")
+
+    context = {
+        'loan_list': loans_private[1:],
+    }
+    return render(request, 'loans.html', context=context)
 
 
     
