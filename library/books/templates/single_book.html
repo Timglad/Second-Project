@@ -23,8 +23,10 @@
     Name:{{book.name}}<br>
     Author:{{book.author}}<br>
     Year published:{{book.year_published|date:"Y"}}<br>
+    {% if user.is_staff%}
     <a href="{% url 'books:edit' book.id %}" class="btn btn-info">Edit book</a>
     <a href="{% url 'books:delbook' book.id %}" onclick="return confirm('The book will be deleted forever, are you sure you want to delete the book?')" class="btn btn-danger">Delete book</a>
+    {%endif%}
     {% if book.status == "A" %}
     <a href="{% url 'books:loan' book.id %}" class="btn btn-info">Loan book</a>
     {% else %}

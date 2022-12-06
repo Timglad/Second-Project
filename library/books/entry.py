@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from .forms import NewUserForm
 
 
 def login_func(request):
@@ -28,19 +28,18 @@ def login_func(request):
     return render(request, 'entry_form.html', {})
 
 
-def register_func(request):
 
-    if request.method == 'GET':
-        form = UserCreationForm()
-        return render(request,'register_form.html',{'form':form})
-    
-    else:
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('books:login_func')
-        return render(request,'register_form.html',{'form':form})
-
+def register_request(request):
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			messages.success(request, "Registration successful." )
+			return redirect("books:mains")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = NewUserForm()
+	return render(request, "register_form.html", context={"register_form":form})
 
 def logout_func(request):
     

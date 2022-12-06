@@ -12,9 +12,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {%if user.is_staff%}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'books:addbook' %}">Add book</a>
           </li>
+          {%endif%}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'books:loans' %}">My loans</a>
           </li>
@@ -39,12 +41,17 @@
         </form>
         {% if user.is_authenticated %}
         <span>Hello {{ user.username }}</span>
-        <a href="{% url 'books:logout_func' %}">LogOut </a><tb>
+        <button type="button" class="btn btn-dark" >
+        <a href="{% url 'books:logout_func' %}">Log-Out</a>
+        </button>
         {% else %}
-        <a href="{% url 'books:login_func' %}">LogIn</a><tb>
-        <a href="{% url 'books:register_func' %}">Register</a>
+        <button type="button" class="btn btn-dark" >
+          <a href="{% url 'books:login_func' %}">LogIn</a>
+        </button>
+        <button type="button" class="btn btn-dark" >
+          <a href="{% url 'books:register' %}">Register</a>
+        </button>
         {% endif %}
-      </div>
     </div>
   </nav>
   
