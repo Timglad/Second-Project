@@ -1,16 +1,11 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import render, redirect
 from books.forms import BookForm
 from django.contrib.auth.decorators import login_required
 from books.models import Book, Loan
 from django.contrib import messages
 from django.db.models import Q
-#from django.contrib.auth.models import User
-from datetime import datetime
 from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime
-import time
+from datetime import date, timedelta
 
 def read_mains():
     with open("final_rank.csv") as book_file:
@@ -28,10 +23,6 @@ def read_mains():
             print(book)
             book.save()
     return book
-
-def new_func():
-    return '%Y-%m-%d'
-
 
 def mains(request):
    mybooks = Book.objects.all()
@@ -94,7 +85,7 @@ def loans(request, pk):
         loan = Loan(custID = current_user, bookID= current_book)
         loan.save()
         loantype = current_book.type
-        loan.returndate = loan.loandate + datetime.timedelta(days=loantype)
+        loan.returndate = loan.loandate + timedelta(days=loantype)
         loan.save()
         current_book.status = "L"
         current_book.save()
@@ -110,11 +101,21 @@ def returns(request, pk):
     current_loan.delete()
     return redirect('books:loans')
 
-def loan_list(request):
+def late_check(pk):
+    loan = Loan.objects.get(id = pk)
+    current_date = date.today()
+    if loan.returndate < current_date:
+        loan.status = "O"
+    else:
+        loan.status = "V"
+    loan.save()
+
+def loan_list_private(request):
     loans = Loan.objects.all()
     current_user = request.user
     loans_private = [{}]
     for loan in loans:
+        late_check(loan.id)
         if loan.custID == current_user:
             loans_private.append(loan)
         else :
@@ -125,6 +126,29 @@ def loan_list(request):
     }
     return render(request, 'loans.html', context=context)
 
+def loan_list(request):
+    loans = Loan.objects.all()
+    context = {
+       'loan_list': loans,
+    }
+    return render(request,'loans.html',context=context)
+
+def late_loans(request):
+    loans = Loan.objects.all()
+    late_loan = [{}]
+    for loan in loans:
+        late_check(loan.id)
+        if loan.status == "O":
+            late_loan.append(loan)
+    context ={
+        'loan_list': late_loan[1:],
+    }
+    return render(request, 'loans.html',context=context)
+
+
+
+
+    
 
     
 

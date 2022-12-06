@@ -39,12 +39,17 @@ class Book(models.Model):
     return self.name + "," + self.author
 
 class Loan(models.Model):
+    class LoanTime(models.TextChoices):
+       OVERTIME = 'O', 'Late Return'
+       ONTIME = 'V' , 'Good'
+
     custID = models.ForeignKey(User, on_delete=models.CASCADE)
     bookID = models.ForeignKey(Book, on_delete=models.CASCADE)
     loandate = models.DateField(auto_now_add=True)
     returndate = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=40, null=False, default= LoanTime.ONTIME, choices=LoanTime.choices)
 
     def __str__(self):
-      return self.custID + "," + self.returndate
+      return f'{self.custID} - {self.returndate}'
 
 
