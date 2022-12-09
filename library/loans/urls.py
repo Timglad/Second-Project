@@ -9,6 +9,6 @@ urlpatterns = [    path('<pk>/loan',views.loans,name= 'loan'),
     path('lateloans/',views.late_loans,name= 'lateloans'),
     path('<pk>/latecheck',views.late_check,name= 'latecheck'),
     path('<pk>/return',views.returns,name= 'return'),
-    path('testtable/',views.test_table,name= 'testtable')
+    path('testtable/',views.test_table,name= 'testtable'),
 
 ]
