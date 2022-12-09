@@ -3,12 +3,10 @@ from django.db import models
 
 # Create your models here.
 
-
 class Author(models.Model):
-   name = models.CharField(max_length=40, primary_key=True )
+   name = models.CharField(max_length=40, null=False)
    age = models.IntegerField(null=True)
    nationallity = models.CharField(max_length=40,default="Unknown")
-
 
 
 class BookType(Enum):
@@ -34,7 +32,7 @@ class Book(models.Model):
 
 
    name = models.CharField(max_length=40, null=False)
-   author = models.ForeignKey(Author,on_delete=models.CASCADE)
+   author = models.ForeignKey(Author, on_delete=models.CASCADE)
    year_published = models.DateField(default="Unknown")
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
    image = models.ImageField(null=True, blank=True, default='/placeholder.png')
