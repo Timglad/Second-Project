@@ -24,7 +24,7 @@
           <li class="list-group-item">Retrun date {{ loan.returndate }}</li>
         </ul>
         <div class="card-body">
-          <a href="{% url 'books:return' loan.id %}" class="btn btn-success">Return book</a>
+          <a href="{% url 'loans:return' loan.id %}" class="btn btn-success">Return book</a>
         </div>
       </div>
     </div>
