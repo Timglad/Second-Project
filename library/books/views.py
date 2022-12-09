@@ -5,7 +5,7 @@ from books.models import Book
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
-from datetime import date, timedelta
+
 
 def read_mains():
     with open("final_rank.csv") as book_file:

@@ -54,10 +54,10 @@
       
       {% if user.is_authenticated %}
       <span>Hello {{ user.username }}</span>
-      <a href="{% url 'books:logout_func' %}" class="btn btn-outline-dark">Log-Out</a>
+      <a href="{% url 'users:logout_func' %}" class="btn btn-outline-dark">Log-Out</a>
       {% else %}
-      <a href="{% url 'books:login_func' %}" class="btn btn-outline-dark">LogIn</a>
-      <a href="{% url 'books:register' %}" class="btn btn-outline-dark">Register</a>
+      <a href="{% url 'users:login_func' %}" class="btn btn-outline-dark">LogIn</a>
+      <a href="{% url 'users:register' %}" class="btn btn-outline-dark">Register</a>
         {% endif %}
           </div>
       </nav>
