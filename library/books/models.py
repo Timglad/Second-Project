@@ -1,7 +1,15 @@
 from enum import Enum
-from django.db import models
+from django.db import models 
 
 # Create your models here.
+
+
+class Author(models.Model):
+   name = models.CharField(max_length=40, primary_key=True )
+   age = models.IntegerField(null=True)
+   nationallity = models.CharField(max_length=40,default="Unknown")
+
+
 
 class BookType(Enum):
    ten_days = 1
@@ -26,7 +34,7 @@ class Book(models.Model):
 
 
    name = models.CharField(max_length=40, null=False)
-   author = models.CharField(max_length=40, null=False)
+   author = models.ForeignKey(Author,on_delete=models.CASCADE)
    year_published = models.DateField(default="Unknown")
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
    image = models.ImageField(null=True, blank=True, default='/placeholder.png')
@@ -34,4 +42,6 @@ class Book(models.Model):
 
    def __str__(self):
     return self.name + "," + self.author
+
+
 

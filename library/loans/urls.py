@@ -10,5 +10,4 @@ urlpatterns = [    path('<pk>/loan',views.loans,name= 'loan'),
     path('<pk>/latecheck',views.late_check,name= 'latecheck'),
     path('<pk>/return',views.returns,name= 'return'),
 
-
 ]
