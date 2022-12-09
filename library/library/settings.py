@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "books",
     "crispy_forms",
-    "loans"
+    "loans",
+    "users"
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_URL = '/login' 
+<<<<<<< HEAD
 
  
+=======
+>>>>>>> 298ebc817d353734e0fc1b5f5b857d6628f82d67
 
 

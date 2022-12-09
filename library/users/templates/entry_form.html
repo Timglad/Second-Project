@@ -3,11 +3,11 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
-<form action="{% url 'books:login_func' %}" method='POST'>
+<form action="{% url 'users:login_func' %}" method='POST'>
     {% csrf_token %}
     <!-- Username input -->
     <div class="form-outline mb-4">
@@ -37,7 +37,7 @@
   
     <!-- Register buttons -->
     <div class="text-center">
-      <p>Not a member? <a href="{% url 'books:register' %}">Register</a></p>
+      <p>Not a member? <a href="{% url 'users:register' %}">Register</a></p>
     </div>
   </form>
 

@@ -25,12 +25,11 @@ def read_mains():
     return book
 
 def mains(request):
-    #read_mains()
-    mybooks = Book.objects.all()
-    context = {
+   mybooks = Book.objects.all()
+   context = {
        'book_list': mybooks,
    }
-    return render(request,'mains.html',context=context)
+   return render(request,'mains.html',context=context)
 
 @staff_member_required
 def add_book(request):
