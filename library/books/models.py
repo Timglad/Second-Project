@@ -3,11 +3,13 @@ from django.db import models
 
 # Create your models here.
 
+class Authors(models.Model):
+   name = models.CharField(max_length=40  )
+   age = models.IntegerField()
+   nationality = models.CharField(max_length=40 )
 
-class Author(models.Model):
-   name = models.CharField(max_length=40, primary_key=True )
-   age = models.IntegerField(null=True)
-   nationallity = models.CharField(max_length=40,default="Unknown")
+   def __str__(self):
+      return self.name + ","  + self.nationality
 
 
 
@@ -34,10 +36,10 @@ class Book(models.Model):
 
 
    name = models.CharField(max_length=40, null=False)
-   author = models.ForeignKey(Author,on_delete=models.CASCADE)
+   author = models.ForeignKey(Authors,on_delete=models.CASCADE)
    year_published = models.DateField(default="Unknown")
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
-   image = models.ImageField(null=True, blank=True, default='/placeholder.png')
+   image = models.ImageField(upload_to='/static/images')
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)
 
    def __str__(self):
