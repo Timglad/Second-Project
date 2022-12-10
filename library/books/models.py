@@ -8,6 +8,9 @@ class Author(models.Model):
    age = models.IntegerField(null=True)
    nationallity = models.CharField(max_length=40,default="Unknown")
 
+   def __str__(self):
+      return f"{self.name} {self.nationallity}"
+
 
 class BookType(Enum):
    ten_days = 1
@@ -39,7 +42,7 @@ class Book(models.Model):
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)
 
    def __str__(self):
-    return self.name + "," + self.author
+    return f"{self.name} {self.author.name}"
 
 
 

@@ -14,7 +14,10 @@
         <input type="text" value="{{book.author}}" name="author"><br>
         Year published:
         <input type="date" value="{{book.year_published|date:'Y' }}" name="yearpublished"><br>
+        Current image:<br>
+        <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." ><br>        
         Image:
+        <input type="file" name="image" accept="image/*" id="id_image"><br>
         <input type="submit" value="save edit">
     </form>
     
