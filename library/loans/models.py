@@ -11,7 +11,6 @@ class LoanStatus(Enum):
    loaned = 2
 
 
-
 class Loan(models.Model):
     class LoanTime(models.TextChoices):
        OVERTIME = 'O', 'Late Return'

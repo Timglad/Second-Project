@@ -4,7 +4,7 @@ from loans.models import Loan
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import date, timedelta
-
+from django.contrib import messages
 # Create your views here.
 
 @login_required
@@ -62,7 +62,7 @@ def loan_list(request):
     context = {
        'loan_list': loans,
     }
-    return render(request,'loans.html',context=context)
+    return render(request,'tables.html',context=context)
 
 @staff_member_required
 def late_loans(request):
@@ -73,10 +73,7 @@ def late_loans(request):
         if loan.status == "O":
             late_loan.append(loan)
     context ={
-        'loan_list': late_loan[1:],
+        'late_list': late_loan[1:],
     }
-    return render(request, 'loans.html',context=context)
-
-def test_table(request):
-    return render(request,'tables.html')
+    return render(request, 'tables.html',context=context)
 

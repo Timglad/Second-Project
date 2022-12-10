@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    {% if edit %}
+
+    <form action="{% url 'users:user' %}" method="POST">
+        {% csrf_token %}
+        Fullname:
+        <input type="text" value="{{ user.fullname }}" name="fullname"><br>
+        City:
+        <input type="text" value="{{ user.city }}" name="city"><br>
+        Age:
+        <input type="number" value="{{ user.age }}" name="age"><br>
+        <input type="submit" value="save edit">
+    </form>
+    
+    {% else %}
+    <img style="width:150px;height:200px" src="{% static 'images/' %}{{ user.image }}" class="card-img-top" alt="..." >
+    <hr/>
+    Name:{{user.fullname}}<br>
+    City:{{user.city}}<br>
+    Age:{{user.age}}<br>
+    {% if user.is_staff%}
+    <a href="{% url 'users:user' %}" class="btn btn-info">Edit book</a>
+    {%endif%}
+    {% endif %}
+   
+    
+
+{% endblock %}
