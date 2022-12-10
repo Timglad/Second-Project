@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
-from books.forms import BookForm
-from books.models import Book
+from books.forms import BookForm, AuthorForm
+from django.contrib.auth.decorators import login_required
+from books.models import Book, Authors
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
@@ -47,7 +48,7 @@ def add_book(request):
         
 def search_books(request):
     search = request.GET.get('search')
-    books = Book.objects.filter(Q(name__contains= search) | Q(author__contains= search))
+    books = Book.objects.filter(Q(name__contains= search))
     context = {
         'book_list' : books,
     }
@@ -76,6 +77,63 @@ def edit_book(request, pk):
     book.save()
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')
+
+#Author functions
+
+def authors(request):
+   all_authors = Authors.objects.all()
+   context = {
+       'authors_list': all_authors,
+   }
+   return render(request,'all_authors.html',context=context)
+
+@staff_member_required
+def add_author(request):
+    if request.method == "POST":
+        authorform = AuthorForm(request.POST, request.FILES)
+        if authorform.is_valid():
+            authorform.save()
+            return redirect('books:authors')          
+    else:
+        authorform = AuthorForm()
+   
+    context = {
+        'authorform': authorform,
+    }
+    return render(request, "add_author.html", context=context)
+        
+
+@staff_member_required
+def delete_author(request,pk):
+    author = Authors.objects.get(id=pk)
+    author.delete()
+    return redirect('books:authors')
+
+def single_author(request, pk):
+    author = Authors.objects.get(id=pk)
+    return render(request,'single_author.html',{'author':author})
+
+@staff_member_required
+def edit_author(request, pk):
+    author = Authors.objects.get(id=pk)
+    if request.method == "GET":
+        return render(request,'single_author.html',{'author':author,'edit':True})
+    author.name = request.POST.get('name')
+    author.age = request.POST.get('age')
+    author.nationality = request.POST.get('nationality')
+    author.save()
+    messages.info(request,"Saved Successfuly")
+    return redirect('books:authors')
+
+
+def search_authors(request):
+    search = request.GET.get('search')
+    authors = Authors.objects.filter(Q(author__contains= search))
+    context = {
+        'authors_list' : authors,
+    }
+    return render(request, 'all_authors.html', context= context)
+
 
 
 
