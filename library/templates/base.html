@@ -28,7 +28,7 @@
       crossorigin="anonymous"></script>
       <!-- Navigation-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container px-4 px-lg-5">
+          <div class="container px-4 px-lg-7">
               <a class="navbar-brand" href="{% url 'books:mains' %}">Home</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,29 +46,26 @@
                       </li>
                       {%endif%}
                       <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'loans:loans' %}">My Loans</a></li>
+                      {% if user.is_authenticated %}
                       <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#!">All Products</a></li>
-                              <li><hr class="dropdown-divider" /></li>
-                              <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                              <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                          </ul>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hello {{user.username}}!</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'users:logout_func' %}">Logout</a></li>
+                        </ul>
                       </li>
+                      {% else %}
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Login</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'users:login_func' %}">Login</a></li>
+                          <li><a class="dropdown-item" href="{% url 'users:register' %}">Register</a></li>
+                        </ul>
+                      </li>
+                      {% endif %}
                   </ul>
                   <form class="d-flex" role="search" action=" {% url 'books:searchbooks' %} ">
                       <input name ="search" class="form-control me-3" type="search" placeholder="Enter author/book" aria-label="Search">
                   </form>
-      
-      {% if user.is_authenticated %}
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hello {{ user.username }}</a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="{% url 'users:logout_func' %}">Logout</a></li>
-      </ul>
-      {% else %}
-      <a href="{% url 'users:login_func' %}" class="btn btn-outline-dark">LogIn</a>
-      <a href="{% url 'users:register' %}" class="btn btn-outline-dark">Register</a>
-      {% endif %}
           </div>
       </nav>
       <!-- Header-->

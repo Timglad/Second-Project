@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm
-from django.contrib.auth.decorators import login_required
 from books.models import Book
 from django.contrib import messages
 from django.db.models import Q
@@ -73,6 +72,7 @@ def edit_book(request, pk):
     book.name = request.POST.get('name')
     book.author = request.POST.get('author')
     book.year_published = request.POST.get('yearpublished')
+    #book.image = request.POST.get('image')
     book.save()
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')

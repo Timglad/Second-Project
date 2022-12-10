@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import NewUserForm, UserProfileForm
 from users.models import UserProfile
+from django.contrib.auth.decorators import login_required
 
 
 def login_func(request):
@@ -47,6 +48,7 @@ def logout_func(request):
     logout(request)
     return redirect('books:mains')
 
+@login_required
 def user_menu(request):
     current_user = request.user
     user = UserProfile.objects.get(id=current_user.id)
