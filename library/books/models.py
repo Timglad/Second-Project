@@ -1,6 +1,7 @@
 from enum import Enum
 from django.db import models 
-
+from django.contrib.auth.models import User
+from users.models import UserProfile
 # Create your models here.
 
 class Authors(models.Model):
@@ -9,11 +10,7 @@ class Authors(models.Model):
    nationality = models.CharField(max_length=40 )
 
    def __str__(self):
-      return self.name + ","  + self.nationality
-
-
-   def __str__(self):
-      return f"{self.name} {self.nationallity}"
+      return f"{self.name}"
 
 
 class BookType(Enum):
@@ -42,11 +39,29 @@ class Book(models.Model):
    author = models.ForeignKey(Authors,on_delete=models.CASCADE)
    year_published = models.DateField(default="Unknown")
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
-   image = models.ImageField(upload_to='/static/images')
+   image = models.ImageField(null=True, blank=True, default='/placeholder.png')
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)
-
+   
+   def get_rating(self):
+         total = sum(int(review['stars']) for review in self.reviews.values())
+         if total == 0:
+            return total
+         else:
+            return total / self.reviews.count()
+   
    def __str__(self):
     return f"{self.name} {self.author.name}"
+
+class BookReview(models.Model):
+      book = models.ForeignKey(Book, related_name='reviews', on_delete=models.CASCADE)
+      customer = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
+      content = models.TextField(blank=True, null=True)
+      stars = models.IntegerField()
+      date_added = models.DateTimeField(auto_now_add=True)  
+
+      
+
+
 
 
 

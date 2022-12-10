@@ -22,11 +22,7 @@
                         <h5 class="fw-bolder">{{book.name}}</h5>
                         <!-- Product reviews-->
                         <div class="d-flex justify-content-center small text-warning mb-2">
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
+                            Stars: {% if book.get_rating == 0 %}No ratings yet{% else %}{{ book.get_rating|floatformat:1 }}{% endif %}</h2>
                         </div>
                         <!-- Product price-->
                     </div>
