@@ -1,37 +1,19 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm, AuthorForm
 from django.contrib.auth.decorators import login_required
-from books.models import Book, Authors
+from books.models import Book, Authors,BookReview
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
-from books.models import BookReview
 
-
-def read_mains():
-    with open("final_rank.csv") as book_file:
-        book_file.readline()
-        for line in book_file:
-            my_list = line.split(",")
-            book = Book(
-                name = my_list[0],
-                author = my_list[1],
-                year_published = my_list[2],
-                type = my_list[3],
-                image = my_list[4],
-                status = my_list[5]
-            )
-            print(book)
-            book.save()
-    return book
 
 def mains(request):
-   mybooks = Book.objects.all()
-   context = {
-       'book_list': mybooks,
-       'range': range(5)
-   }
-   return render(request,'mains.html',context=context)
+    
+    mybooks = Book.objects.all()
+    context = {
+       'book_list': mybooks
+    }
+    return render(request,'mains.html',context=context)
 
 @staff_member_required
 def add_book(request):

@@ -5,12 +5,12 @@ from users.models import UserProfile
 # Create your models here.
 
 class Authors(models.Model):
-   name = models.CharField(max_length=40  )
+   name = models.CharField(max_length=40, unique=True)
    age = models.IntegerField()
    nationality = models.CharField(max_length=40 )
 
    def __str__(self):
-      return f"{self.name}"
+      return f"{self.name}"+ f"{self.age}"
 
 
 class BookType(Enum):
