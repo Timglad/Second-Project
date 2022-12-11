@@ -41,7 +41,7 @@ class Book(models.Model):
       YEAR_CHOICES.append((r,r))
    year_published = models.IntegerField(('year'), choices=YEAR_CHOICES, default=datetime.datetime.now().year)
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
-   image = models.ImageField(null=False, blank=False, default='placehlder.png')
+   image = models.ImageField(null=False, blank=False, default='placeholder.png')
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)
    
    def get_rating(self):

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm, AuthorForm
 from books.models import Book, Authors,BookReview
-from library.loans.views import late_check
+from loans.views import late_check
 from loans.models import Loan
 from django.contrib import messages
 from django.db.models import Q
