@@ -27,6 +27,7 @@
     </head>
 
     <body>
+      
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
       crossorigin="anonymous"></script>
       <!-- Navigation-->
@@ -51,9 +52,12 @@
                       <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'loans:loans' %}">My Loans</a></li>
                       {% if user.is_authenticated %}
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hello {{user.username}}!</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img style="border-radius: 25px;" height="35px" width="35px" src="{% static 'images/' %}{{ user.userprofile.image }}"></a>
                         <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" >{{user.username}}</a></li>
+                          <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="{% url 'users:logout_func' %}">Logout</a></li>
+                          <li><a class="dropdown-item" href="{% url 'users:user' %}">Edit Profile</a></li>
                         </ul>
                       </li>
                       {% else %}
@@ -71,6 +75,7 @@
                   </form>
           </div>
       </nav>
+ 
       <!-- Header-->
       <header class="bg-dark py-5">
           <div class="container px-4 px-lg-5 my-5">
@@ -80,6 +85,13 @@
               </div>
           </div>
       </header>
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %} 
 {%block content%}
 
 {%endblock%}

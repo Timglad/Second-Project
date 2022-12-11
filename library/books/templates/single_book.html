@@ -17,7 +17,7 @@
         Current image:<br>
         <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." ><br>        
         Image:
-        <input type="file" name="image" accept="image/*" id="id_image"><br>
+        <input type="file" name="image" accept="image/*" id="id_image" required><br>
         <input type="submit" value="save edit">
     </form>
     
@@ -34,7 +34,7 @@
     {% if book.status == "A" %}
     <a href="{% url 'loans:loan' book.id %}" class="btn btn-info">Loan book</a>
     {% else %}
-    <button type="button" class="btn btn-info" disabled>Loan book</button>
+    <button type="button" class="btn btn-info" disabled>On Loan</button>
     
     {% endif %}
     {% endif %}

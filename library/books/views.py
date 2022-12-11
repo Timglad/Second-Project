@@ -29,7 +29,6 @@ def mains(request):
    mybooks = Book.objects.all()
    context = {
        'book_list': mybooks,
-       'range': range(5)
    }
    return render(request,'mains.html',context=context)
 
@@ -80,9 +79,9 @@ def edit_book(request, pk):
     if request.method == "GET":
         return render(request,'single_book.html',{'book':book,'edit':True})
     book.name = request.POST.get('name')
-    book.author = request.POST.get('author')
+    book.authors = request.POST.get('author')
     book.year_published = request.POST.get('yearpublished')
-    #book.image = request.POST.get('image')
+    book.image = request.POST.get('image')
     book.save()
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')

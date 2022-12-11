@@ -48,10 +48,19 @@ def logout_func(request):
     logout(request)
     return redirect('books:mains')
 
+def single_user(request):
+    user = UserProfile.objects.get(user=request.user)
+    
+    return render(request,'user.html',{'user':user})
+
 @login_required
 def user_menu(request):
     current_user = request.user
-    user = UserProfile.objects.get(id=current_user.id)
+    try:
+        profile = UserProfile(user=request.user)
+        profile.save()
+    except:
+        user = UserProfile.objects.get(user=request.user)
     if request.method == "GET":
         return render(request,'user.html',{'user':user,'edit':True})
     user.fullname = request.POST.get('fullname')
@@ -60,7 +69,7 @@ def user_menu(request):
     user.image = request.POST.get('image')
     user.save()
     messages.info(request,"Saved Successfuly")
-    return redirect('books:mains')
+    return redirect('users:showuser')
 
 def first_login(request):
      profile = UserProfile(user=request.user)

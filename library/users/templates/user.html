@@ -14,7 +14,7 @@
         Current image:<br>
         <img style="width:50px;height:50px" src="{% static 'images/' %}{{ user.image }}" class="card-img-top" alt="..." ><br>        
         Image:
-        <input type="file" name="image" accept="image/*" id="id_image"><br>
+        <input type="file" name="image" accept="image/*" id="id_image" required><br>
         <input type="submit" value="save edit">
     </form>
     
@@ -24,9 +24,7 @@
     Name:{{user.fullname}}<br>
     City:{{user.city}}<br>
     Age:{{user.age}}<br>
-    {% if user.is_staff%}
     <a href="{% url 'users:user' %}" class="btn btn-info">Edit user</a>
-    {%endif%}
     {% endif %}
    
     
