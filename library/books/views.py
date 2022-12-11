@@ -8,12 +8,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 
 def mains(request):
-    
-    mybooks = Book.objects.all()
-    context = {
-       'book_list': mybooks
-    }
-    return render(request,'mains.html',context=context)
+   mybooks = Book.objects.all()
+   context = {
+       'book_list': mybooks,
+   }
+   return render(request,'mains.html',context=context)
 
 @staff_member_required
 def add_book(request):
@@ -53,7 +52,23 @@ def single_book(request, pk):
         review = BookReview.objects.create(book=book, customer=request.user, stars=stars, content=content)
 
         return redirect('books:mains')
-    return render(request,'single_book.html',{'book':book})
+    reviews = show_reviews(pk)
+    context = {
+        'reviews' : reviews,
+        'book' : book,
+    }
+    return render(request,'single_book.html',context = context)
+
+def show_reviews(pk):
+    current_book = Book.objects.get(id=pk)
+    reviews = BookReview.objects.all().order_by('date_added')
+    for review in reviews:
+        if review.book == current_book:
+            pass
+        else:
+            reviews.remove(review)
+    return reviews
+
 
 @staff_member_required
 def edit_book(request, pk):
@@ -62,9 +77,9 @@ def edit_book(request, pk):
     if request.method == "GET":
         return render(request,'single_book.html',{'book':book,'edit':True})
     book.name = request.POST.get('name')
-    book.author = request.POST.get('author')
+    book.authors = request.POST.get('author')
     book.year_published = request.POST.get('yearpublished')
-    #book.image = request.POST.get('image')
+    book.image = request.POST.get('image')
     book.save()
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')

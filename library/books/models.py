@@ -2,6 +2,8 @@ from enum import Enum
 from django.db import models 
 from django.contrib.auth.models import User
 from users.models import UserProfile
+from django.conf import settings
+from django.conf.urls.static import static
 # Create your models here.
 
 class Authors(models.Model):
@@ -39,7 +41,7 @@ class Book(models.Model):
    author = models.ForeignKey(Authors,on_delete=models.CASCADE)
    year_published = models.DateField(default="Unknown")
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
-   image = models.ImageField(null=True, blank=True, default='/placeholder.png')
+   image = models.ImageField(null=False, blank=False, default='placehlder.png')
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)
    
    def get_rating(self):

@@ -1,10 +1,5 @@
 {%extends 'base.html' %}
 {%block content%}
-<ul class="messages">
-{% for message in messages %}
-    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
-{% endfor %}
-</ul>
     <!-- Section-->
         <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">   

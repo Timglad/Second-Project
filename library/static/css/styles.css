@@ -2991,6 +2991,11 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
+form { 
+  margin: 0 auto; 
+  width:250px;
+  }
+
 .btn {
   display: inline-block;
   font-weight: 400;

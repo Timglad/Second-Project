@@ -6,7 +6,7 @@
 }</script>
     {% if edit %}
 
-    <form action="{% url 'books:edit' book.id %}" method="POST">
+    <center><form action="{% url 'books:edit' book.id %}" method="POST">
         {% csrf_token %}
         Book name:
         <input type="text" value="{{book.name}}" name="name"><br>
@@ -17,11 +17,12 @@
         Current image:<br>
         <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." ><br>        
         Image:
-        <input type="file" name="image" accept="image/*" id="id_image"><br>
+        <input type="file" name="image" accept="image/*" id="id_image" required><br>
         <input type="submit" value="save edit">
-    </form>
+    </form></center>
     
     {% else %}
+    <center><div>
     <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." >
     <hr/>
     Name:{{book.name}}<br>
@@ -34,7 +35,7 @@
     {% if book.status == "A" %}
     <a href="{% url 'loans:loan' book.id %}" class="btn btn-info">Loan book</a>
     {% else %}
-    <button type="button" class="btn btn-info" disabled>Loan book</button>
+    <button type="button" class="btn btn-info" disabled>On Loan</button>
     
     {% endif %}
     {% endif %}
@@ -43,7 +44,7 @@
         <h2 class="subtitle">Reviews</h2>
 
         <div class="reviews-wrapper">
-            {% for review in book.reviews.all %}
+            {% for review in reviews %}
                 <div class="notification space-below">
                     <p>
                         <strong>Customer: </strong>{{ review.customer }},
@@ -100,6 +101,7 @@
             {% endif %}
         </div>
     </div>
+</div></center>
    
     
 

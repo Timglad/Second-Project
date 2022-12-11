@@ -49,8 +49,6 @@ def loan_list_private(request):
         late_check(loan.id)
         if loan.custID == current_user:
             loans_private.append(loan)
-        else :
-             messages.info(request,"Saved Successfuly")
 
     context = {
         'loan_list': loans_private[1:],
