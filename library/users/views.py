@@ -2,17 +2,15 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import NewUserForm, UserProfileForm
+from .forms import NewUserForm
 from users.models import UserProfile
 from django.contrib.auth.decorators import login_required
 
 
 def login_func(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         try:
             User.objects.get(username=username)
         except:
@@ -23,7 +21,6 @@ def login_func(request):
         if user is not None:
             login(request,user)
             return redirect('books:mains')
-        
         else:
             messages.error(request, 'PASSWORD ERROR OCCURRED WHILE LOG-IN') 
 
@@ -41,16 +38,17 @@ def register_request(request):
 			return redirect("users:firstlogin")
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm()
+
 	return render(request, "register_form.html", context={"register_form":form})
 
 def logout_func(request):
-    
     logout(request)
+
     return redirect('books:mains')
 
 def single_user(request):
     user = UserProfile.objects.get(user=request.user)
-    
+
     return render(request,'user.html',{'user':user})
 
 @login_required
@@ -69,9 +67,11 @@ def user_menu(request):
     user.image = request.POST.get('image')
     user.save()
     messages.info(request,"Saved Successfuly")
+
     return redirect('users:showuser')
 
 def first_login(request):
-     profile = UserProfile(user=request.user)
-     profile.save()
-     return redirect('books:mains')
+    profile = UserProfile(user=request.user)
+    profile.save()
+    
+    return redirect('books:mains')

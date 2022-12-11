@@ -1,0 +1,8 @@
+Name,Age,Nationality
+Brown Dan,58,USA
+Rowling J.K,57,England
+James E. L.,59,England
+Meyer Stephenie,48,USA
+Larsson Stieg,50,Sweden
+Sebold Alice,59,USA
+Mark Haddon,60,England
