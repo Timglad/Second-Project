@@ -2,11 +2,10 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import NewUserForm, UserProfileForm
+from .forms import NewUserForm
 from users.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-
 
 
 def login_func(request):
@@ -30,7 +29,6 @@ def login_func(request):
             messages.error(request, 'PASSWORD ERROR OCCURRED WHILE LOG-IN') 
 
     return render(request, 'entry_form.html', {})
-
 
 
 def register_request(request):
@@ -58,7 +56,6 @@ def single_user(request):
 
 @login_required
 def user_menu(request):
-    current_user = request.user
     try:
         profile = UserProfile(user=request.user)
         profile.save()

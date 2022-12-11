@@ -1,16 +1,12 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm, AuthorForm
-from django.contrib.auth.decorators import login_required
 from books.models import Book, Authors,BookReview
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
-<<<<<<< HEAD
 from books.models import BookReview
 from loans.models import Loan
 from loans.views import late_check
-=======
->>>>>>> 32cdf1178d67db9307ba4ae1be5a1264cc084c0d
 
 
 def mains(request):
@@ -48,6 +44,8 @@ def delete_book(request,pk):
     book = Book.objects.get(id=pk)
     book.delete()
     return redirect('books:mains')
+
+## Reviews:
 
 def single_book(request, pk):
     book = Book.objects.get(id=pk)
@@ -100,7 +98,7 @@ def edit_book(request, pk):
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')
 
-#Author functions
+##Author functions
 
 def authors(request):
    all_authors = Authors.objects.all()

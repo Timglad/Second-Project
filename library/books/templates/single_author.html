@@ -5,7 +5,6 @@
     confirm("are you sure?");
 }</script>
     {% if edit %}
-
     <center><form action="{% url 'books:edit_author' author.id %}" method="POST">
         {% csrf_token %}
         Author name:
@@ -16,17 +15,13 @@
         <input type="text" value="{{author.nationallity}}" name="nationality"><br>
         <input type="submit" value="save edit">
     </form></center>
-    
     {% else %}
     <center><div>
     Name:{{author.name}}<br>
     Age:{{author.age}}<br>
     nationality : {{author.nationality}}<br>
-    {%endif%}
-    {% if user.is_staff%}
     <a href="{% url 'books:edit_author' author.id %}" class="btn btn-info">Edit author</a>
     <a href="{% url 'books:delete_author' author.id %}" onclick="return confirm('These author will be deleted forever, are you sure you want to delete this author?')" class="btn btn-danger">Delete author</a>
     {%endif%}
 </div></center>
-    
 {% endblock %}

@@ -1,10 +1,7 @@
 from enum import Enum
 from django.db import models 
 from django.contrib.auth.models import User
-from users.models import UserProfile
-from django.conf import settings
-from django.conf.urls.static import static
-# Create your models here.
+import datetime
 
 class Authors(models.Model):
    name = models.CharField(max_length=40, unique=True)
@@ -39,7 +36,10 @@ class Book(models.Model):
 
    name = models.CharField(max_length=40, null=False)
    author = models.ForeignKey(Authors,on_delete=models.CASCADE)
-   year_published = models.DateField(default="Unknown")
+   YEAR_CHOICES = []
+   for r in range(1900, (datetime.datetime.now().year+1)):
+      YEAR_CHOICES.append((r,r))
+   year_published = models.IntegerField(('year'), choices=YEAR_CHOICES, default=datetime.datetime.now().year)
    type = models.SmallIntegerField(null=False, default = BookType.two_days, choices=BookType2.choices)
    image = models.ImageField(null=False, blank=False, default='placehlder.png')
    status =models.CharField(max_length=40, null=False, default= LoanStatus2.AVAILABLE, choices= LoanStatus2.choices)

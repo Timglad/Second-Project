@@ -4,8 +4,7 @@ from loans.models import Loan
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import date, timedelta
-from django.contrib import messages
-# Create your views here.
+
 
 @login_required
 def loans(request, pk):

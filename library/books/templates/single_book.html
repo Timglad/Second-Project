@@ -5,7 +5,6 @@
     confirm("are you sure?");
 }</script>
     {% if edit %}
-
     <center><form action="{% url 'books:edit' book.id %}" method="POST">
         {% csrf_token %}
         Book name:
@@ -20,7 +19,6 @@
         <input type="file" name="image" accept="image/*" id="id_image" required><br>
         <input type="submit" value="save edit">
     </form></center>
-    
     {% else %}
     <center><div>
     <img style="width:150px;height:200px" src="{% static 'images/' %}{{ book.image }}" class="card-img-top" alt="..." >
@@ -36,13 +34,10 @@
     <a href="{% url 'loans:loan' book.id %}" class="btn btn-info">Loan book</a>
     {% else %}
     <button type="button" class="btn btn-info" disabled>On Loan</button>
-    
     {% endif %}
     {% endif %}
     <hr>
-
         <h2 class="subtitle">Reviews</h2>
-
         <div class="reviews-wrapper">
             {% for review in reviews %}
                 <div class="notification space-below">
@@ -51,7 +46,6 @@
                         <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }},
                         <strong>Stars: </strong>{{ review.stars }}
                     </p>
-
                     {{ review.content }}
                 </div>
             {% empty %}
@@ -60,15 +54,12 @@
                 </div>
             {% endfor %}
         </div>
-
         <div class="notification space-below">
             {% if request.user.is_authenticated %}
                 <form method="post" action="{% url 'books:single_book' book.id %}">
                     {% csrf_token %}
-
                     <div class="field">
                         <label>Stars</label>
-
                         <div clas="control">
                             <div class="select">
                                 <select name="stars">
@@ -81,15 +72,12 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="field">
                         <label>Content</label>
-
                         <div class="control">
                             <textarea class="textarea" name="content"></textarea>
                         </div>
                     </div>
-
                     <div class="field">
                         <div class="control">
                             <button class="button is-success">Submit</button>
@@ -102,7 +90,4 @@
         </div>
     </div>
 </div></center>
-   
-    
-
 {% endblock %}
