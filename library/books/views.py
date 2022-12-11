@@ -5,6 +5,7 @@ from books.models import Book, Authors
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
+from books.models import BookReview
 
 
 def read_mains():
@@ -28,6 +29,7 @@ def mains(request):
    mybooks = Book.objects.all()
    context = {
        'book_list': mybooks,
+       'range': range(5)
    }
    return render(request,'mains.html',context=context)
 
@@ -62,6 +64,13 @@ def delete_book(request,pk):
 
 def single_book(request, pk):
     book = Book.objects.get(id=pk)
+    if request.method == 'POST' and request.user.is_authenticated:
+        stars = request.POST.get('stars', 3)
+        content = request.POST.get('content', '')
+
+        review = BookReview.objects.create(book=book, customer=request.user, stars=stars, content=content)
+
+        return redirect('books:mains')
     return render(request,'single_book.html',{'book':book})
 
 @staff_member_required
@@ -73,6 +82,7 @@ def edit_book(request, pk):
     book.name = request.POST.get('name')
     book.author = request.POST.get('author')
     book.year_published = request.POST.get('yearpublished')
+    #book.image = request.POST.get('image')
     book.save()
     messages.info(request,"Saved Successfuly")
     return redirect('books:mains')
