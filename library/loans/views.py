@@ -71,7 +71,7 @@ def late_loans(request):
         if loan.status == "O":
             late_loan.append(loan)
     context ={
-        'late_list': late_loan[1:],
+        'loan_list': late_loan[1:],
     }
     return render(request, 'tables.html',context=context)
 

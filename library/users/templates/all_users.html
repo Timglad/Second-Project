@@ -1,0 +1,32 @@
+{%extends 'base.html' %}
+{%block content%}
+    <!-- Section-->
+        <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">   
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for user in users %}
+        <div class="col mb-5">    
+            <div class="card h-100">
+                {% load static %}
+                <img class="card-img-top" src="{%static 'images/' %}{{ user.image }}" alt="{% static 'images/placehlder' %}" /></img>
+                <!-- Author details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw">{{user.user.username}}</h5>
+                        <h5 class="fw">{{user.age}}</h5>
+                        <!-- Author name-->
+                        <h1 class="fw-bolder">{{user.city}}</h1>
+                        <!-- Product price-->
+                        <h5 class="fw">{{user.fullname}}</h5>
+                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <a href="{% url 'users:deluser' user.user.id %}" onclick="return confirm('The customer will be deleted forever, are you sure you want to delete the customer?')" class="btn btn-danger">Delete customer</a>                </div>
+                
+            </div>
+        </div>
+        {%endfor%}    
+    </section>
+{%endblock%}
+        

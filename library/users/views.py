@@ -5,6 +5,8 @@ from django.contrib import messages
 from .forms import NewUserForm
 from users.models import UserProfile
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 def login_func(request):
@@ -46,6 +48,7 @@ def logout_func(request):
 
     return redirect('books:mains')
 
+@login_required
 def single_user(request):
     user = UserProfile.objects.get(user=request.user)
 
@@ -71,7 +74,19 @@ def user_menu(request):
     return redirect('users:showuser')
 
 def first_login(request):
-    profile = UserProfile(user=request.user)
-    profile.save()
+     profile = UserProfile(user=request.user)
+     profile.save()
+     return redirect('books:mains')
+
+@staff_member_required
+def customer_list(request):
+    users = UserProfile.objects.all()
+    return render(request,'all_users.html',{'users':users})
+
+@staff_member_required
+def deluser(request, pk):
+    user = User.objects.get(id=pk)
+    user.delete()
+    return redirect('users:customerlist')
+
     
-    return redirect('books:mains')

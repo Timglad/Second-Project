@@ -36,7 +36,7 @@
                             <td>{{ loan.bookID }}</td>
                             <td>{{ loan.loandate }}</td>
                             <td>{{ loan.returndate }}</td>
-                            <td>{{ loan.status }}</td>
+                            <td>{{ loan.get_status_display }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

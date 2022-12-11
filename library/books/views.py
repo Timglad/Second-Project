@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm, AuthorForm
-from django.contrib.auth.decorators import login_required
 from books.models import Book, Authors,BookReview
+from library.loans.views import late_check
+from loans.models import Loan
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
@@ -45,6 +46,11 @@ def delete_book(request,pk):
 
 def single_book(request, pk):
     book = Book.objects.get(id=pk)
+    try:
+        loan = Loan.objects.get(bookID=pk)
+        late_check(loan.id)
+    except:
+        pass
     if request.method == 'POST' and request.user.is_authenticated:
         stars = request.POST.get('stars', 3)
         content = request.POST.get('content', '')
@@ -52,11 +58,16 @@ def single_book(request, pk):
         review = BookReview.objects.create(book=book, customer=request.user, stars=stars, content=content)
 
         return redirect('books:mains')
-    reviews = show_reviews(pk)
-    context = {
+    try:
+        reviews = show_reviews(pk)
+        context = {
         'reviews' : reviews,
         'book' : book,
     }
+    except:
+        context = {
+        'book' : book,
+        }
     return render(request,'single_book.html',context = context)
 
 def show_reviews(pk):

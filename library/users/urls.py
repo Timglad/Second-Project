@@ -10,5 +10,8 @@ urlpatterns = [
     path('user/', views.user_menu, name="user"),
     path('showuser/', views.single_user, name="showuser"),
     path('firstlogin/', views.first_login, name="firstlogin"),
+    path('customerlist/', views.customer_list, name="customerlist"),
+    path('<pk>/deluser', views.deluser, name="deluser"),
+
 
 ]
