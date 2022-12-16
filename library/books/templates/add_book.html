@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
  
-<form action="{% url 'books:addbook' %}" method="POST" enctype=multipart/form-data>
+<center><form action="{% url 'books:addbook' %}" method="POST" enctype=multipart/form-data>
    {% csrf_token %}
    {{ bookform.as_p }}
    <input type="submit">
-</form>
+</form></center>
 {% endblock %}

@@ -43,6 +43,7 @@
                         <ul class="dropdown-menu">
                           <li><a class="dropdown-item" href="{% url 'books:addbook' %}">Add book</a></li>
                           <li><a class="dropdown-item" href="{% url 'loans:adminloans' %}">Loan List</a></li>
+                          <li><a class="dropdown-item" href="{% url 'books:add_author' %}">Add Author</a></li>
                           <li><a class="dropdown-item" href="#">Late Loans</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="#">Separated link</a></li>
@@ -56,8 +57,9 @@
                         <ul class="dropdown-menu">
                           <li><a class="dropdown-item" >{{user.username}}</a></li>
                           <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="{% url 'users:showuser' %}">View profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'users:user' %}">Edit profile</a></li>
                           <li><a class="dropdown-item" href="{% url 'users:logout_func' %}">Logout</a></li>
-                          <li><a class="dropdown-item" href="{% url 'users:user' %}">Edit Profile</a></li>
                         </ul>
                       </li>
                       {% else %}

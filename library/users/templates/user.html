@@ -3,7 +3,7 @@
 {% block content %}
     {% if edit %}
 
-    <form action="{% url 'users:user' %}" method="POST">
+    <center><form action="{% url 'users:user' %}" method="POST">
         {% csrf_token %}
         Fullname:
         <input type="text" value="{{ user.fullname }}" name="fullname"><br>
@@ -16,15 +16,17 @@
         Image:
         <input type="file" name="image" accept="image/*" id="id_image" required><br>
         <input type="submit" value="save edit">
-    </form>
+    </form></center>
     
     {% else %}
+   <center> <div>
     <img style="width:150px;height:200px" src="{% static 'images/' %}{{ user.image }}" class="card-img-top" alt="..." >
     <hr/>
     Name:{{user.fullname}}<br>
     City:{{user.city}}<br>
     Age:{{user.age}}<br>
     <a href="{% url 'users:user' %}" class="btn btn-info">Edit user</a>
+</div></center>
     {% endif %}
    
     

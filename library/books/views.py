@@ -70,7 +70,23 @@ def single_book(request, pk):
         review = BookReview.objects.create(book=book, customer=request.user, stars=stars, content=content)
 
         return redirect('books:mains')
-    return render(request,'single_book.html',{'book':book})
+    reviews = show_reviews(pk)
+    context = {
+        'reviews' : reviews,
+        'book' : book,
+    }
+    return render(request,'single_book.html',context = context)
+
+def show_reviews(pk):
+    current_book = Book.objects.get(id=pk)
+    reviews = BookReview.objects.all().order_by('date_added')
+    for review in reviews:
+        if review.book == current_book:
+            pass
+        else:
+            reviews.remove(review)
+    return reviews
+
 
 @staff_member_required
 def edit_book(request, pk):
