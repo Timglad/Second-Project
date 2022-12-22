@@ -44,9 +44,10 @@
                           <li><a class="dropdown-item" href="{% url 'books:addbook' %}">Add book</a></li>
                           <li><a class="dropdown-item" href="{% url 'loans:adminloans' %}">Loan List</a></li>
                           <li><a class="dropdown-item" href="{% url 'books:add_author' %}">Add Author</a></li>
-                          <li><a class="dropdown-item" href="#">Late Loans</a></li>
+                          <li><a class="dropdown-item" href="{% url 'loans:lateloans' %}">Late Loans</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="#">Separated link</a></li>
+                          <li><a class="dropdown-item" href="{% url 'users:customerlist' %}">Customers</a></li>
                         </ul>
                       </li>
                       {%endif%}

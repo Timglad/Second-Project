@@ -5,7 +5,7 @@
 
 
 {% for loan in loan_list %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<center><div class="row row-cols-1 row-cols-md-3 g-4">
   <div class="col">
     <div class="card h-100 w-50">
         <img src="{% static 'images/' %}{{ loan.bookID.image }}" class="card-img-top" alt="...">
@@ -27,6 +27,6 @@
         </div>
       </div>
     </div>
- </div>
+ </div></center>
 {% endfor %}
 {% endblock %}
