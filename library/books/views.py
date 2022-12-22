@@ -1,31 +1,17 @@
 from django.shortcuts import render,redirect
 from books.forms import BookForm, AuthorForm
 from django.contrib.auth.decorators import login_required
-from books.models import Book, Authors
+from books.models import Book, Authors,BookReview
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
+<<<<<<< HEAD
 from books.models import BookReview
 from loans.models import Loan
 from loans.views import late_check
+=======
+>>>>>>> 32cdf1178d67db9307ba4ae1be5a1264cc084c0d
 
-
-def read_mains():
-    with open("final_rank.csv") as book_file:
-        book_file.readline()
-        for line in book_file:
-            my_list = line.split(",")
-            book = Book(
-                name = my_list[0],
-                author = my_list[1],
-                year_published = my_list[2],
-                type = my_list[3],
-                image = my_list[4],
-                status = my_list[5]
-            )
-            print(book)
-            book.save()
-    return book
 
 def mains(request):
    mybooks = Book.objects.all()
